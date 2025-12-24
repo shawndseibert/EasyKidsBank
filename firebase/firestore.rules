@@ -1,0 +1,87 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isParent(parentId) {
+      return isAuthenticated() && request.auth.uid == parentId;
+    }
+
+    function getKidData(kidId) {
+      return get(/databases/$(database)/documents/kids/$(kidId)).data;
+    }
+
+    function isKidOwner(kidId) {
+      return isAuthenticated() &&
+             getKidData(kidId).parentId == request.auth.uid;
+    }
+
+    // Parents collection
+    // - Parents can only read/write their own document
+    match /parents/{parentId} {
+      allow read: if isParent(parentId);
+      allow create: if isAuthenticated() && request.auth.uid == parentId;
+      allow update: if isParent(parentId);
+      allow delete: if isParent(parentId);
+    }
+
+    // Kids collection
+    // - Parents can CRUD their own kids
+    // - Kids documents contain sensitive data (PIN, balance)
+    match /kids/{kidId} {
+      allow read: if isAuthenticated() &&
+                     (resource.data.parentId == request.auth.uid);
+      allow create: if isAuthenticated() &&
+                      request.resource.data.parentId == request.auth.uid &&
+                      request.resource.data.balance >= 0;
+      allow update: if isAuthenticated() &&
+                      resource.data.parentId == request.auth.uid;
+      allow delete: if isAuthenticated() &&
+                      resource.data.parentId == request.auth.uid;
+    }
+
+    // Transactions collection
+    // - Parents can read all transactions for their kids
+    // - Only parents can create transactions
+    match /transactions/{transactionId} {
+      allow read: if isAuthenticated() &&
+                     resource.data.parentId == request.auth.uid;
+      allow create: if isAuthenticated() &&
+                      request.resource.data.parentId == request.auth.uid &&
+                      request.resource.data.amount > 0;
+      allow update: if false; // Transactions are immutable
+      allow delete: if isAuthenticated() &&
+                      resource.data.parentId == request.auth.uid;
+    }
+
+    // Deposit Requests collection
+    // - Parents can read requests addressed to them
+    // - Requests can be created by authenticated users (parent session)
+    // - Only pending requests can be updated (approved/denied)
+    match /depositRequests/{requestId} {
+      allow read: if isAuthenticated() &&
+                     resource.data.parentId == request.auth.uid;
+      allow create: if isAuthenticated() &&
+                      request.resource.data.parentId == request.auth.uid &&
+                      request.resource.data.status == 'pending' &&
+                      request.resource.data.amount > 0;
+      allow update: if isAuthenticated() &&
+                      resource.data.parentId == request.auth.uid &&
+                      resource.data.status == 'pending' &&
+                      (request.resource.data.status == 'approved' ||
+                       request.resource.data.status == 'denied');
+      allow delete: if isAuthenticated() &&
+                      resource.data.parentId == request.auth.uid;
+    }
+
+    // Default themes collection (read-only for all authenticated users)
+    match /themes/{themeId} {
+      allow read: if isAuthenticated();
+      allow write: if false; // Only admins can modify via Firebase Console
+    }
+  }
+}

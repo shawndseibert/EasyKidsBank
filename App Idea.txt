@@ -1,0 +1,10 @@
+The idea of this app is to have a very simple web app that anyone can use.
+A parent makes accounts for their kids. The parent is the only one able to update the amount of money is in the kids bank acccount. They can approve kids deposit request to add money to their account. They can also penalize and take money away for infractions (not doing chorse, misbehaving, etc...).
+
+The kids can sign into those accounts and see how much money they have in their bank account. They can make deposit requests for the parent to add money to their account. They have the option to update their account name and theme!
+
+I use firebase for another app. So we could use that as the back end so the parent can make the accounts and the kids can sign into their accounts. I want to make this with html, css and javascript.
+
+I want the interface to fill the entire window and that HAS to look good and funtion really well on mobile as the kids use tablets/phones. I want all popups/modals to be styled just like the rest of the app and all colors, text, UI elements, etc... to foloe theme colors set by the user. The user should be able to make and save custom themes with a wide variety of allready made themes that are there by default to make getting started easy and enjoyable.
+
+This app should look kid proffessional, minimal clean and modern. 

@@ -1,0 +1,393 @@
+/* ========================================
+   EasyKidsBank - Animations
+   ======================================== */
+
+/* ========================================
+   Keyframe Animations
+   ======================================== */
+
+/* Fade In */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Fade Out */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* Slide Up */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Slide Down */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Slide In from Right */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Slide In from Left */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Scale In */
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Scale Out */
+@keyframes scaleOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}
+
+/* Bounce */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Pulse */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.8;
+    }
+}
+
+/* Shake */
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(5px);
+    }
+}
+
+/* Shimmer (for skeletons) */
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Pop */
+@keyframes pop {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Wiggle */
+@keyframes wiggle {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-5deg);
+    }
+    75% {
+        transform: rotate(5deg);
+    }
+}
+
+/* Count Up (for balance animation) */
+@keyframes countUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   Animation Utility Classes
+   ======================================== */
+
+/* Base animation properties */
+.animate {
+    animation-duration: var(--transition-normal);
+    animation-fill-mode: both;
+}
+
+.animate-fast {
+    animation-duration: var(--transition-fast);
+}
+
+.animate-slow {
+    animation-duration: var(--transition-slow);
+}
+
+/* Animation types */
+.animate-fadeIn {
+    animation-name: fadeIn;
+}
+
+.animate-fadeOut {
+    animation-name: fadeOut;
+}
+
+.animate-slideUp {
+    animation-name: slideUp;
+}
+
+.animate-slideDown {
+    animation-name: slideDown;
+}
+
+.animate-slideInRight {
+    animation-name: slideInRight;
+}
+
+.animate-slideInLeft {
+    animation-name: slideInLeft;
+}
+
+.animate-scaleIn {
+    animation-name: scaleIn;
+}
+
+.animate-scaleOut {
+    animation-name: scaleOut;
+}
+
+.animate-bounce {
+    animation-name: bounce;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+}
+
+.animate-pulse {
+    animation-name: pulse;
+    animation-iteration-count: infinite;
+    animation-duration: 2s;
+}
+
+.animate-shake {
+    animation-name: shake;
+}
+
+.animate-pop {
+    animation-name: pop;
+}
+
+.animate-wiggle {
+    animation-name: wiggle;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+}
+
+/* Delay utilities */
+.animate-delay-100 {
+    animation-delay: 100ms;
+}
+
+.animate-delay-200 {
+    animation-delay: 200ms;
+}
+
+.animate-delay-300 {
+    animation-delay: 300ms;
+}
+
+.animate-delay-400 {
+    animation-delay: 400ms;
+}
+
+.animate-delay-500 {
+    animation-delay: 500ms;
+}
+
+/* ========================================
+   Page Transition Classes
+   ======================================== */
+
+/* View enter/exit animations */
+.view-enter {
+    animation: slideUp var(--transition-normal) ease-out;
+}
+
+.view-exit {
+    animation: fadeOut var(--transition-fast) ease-in;
+}
+
+/* Staggered children animation */
+.stagger-children > * {
+    animation: slideUp var(--transition-normal) ease-out both;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 50ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 100ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 150ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 200ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 250ms; }
+.stagger-children > *:nth-child(7) { animation-delay: 300ms; }
+.stagger-children > *:nth-child(8) { animation-delay: 350ms; }
+
+/* ========================================
+   Interactive Feedback Animations
+   ======================================== */
+
+/* Button press effect */
+.btn-press {
+    transition: transform var(--transition-fast);
+}
+
+.btn-press:active {
+    transform: scale(0.95);
+}
+
+/* Card hover effect */
+.card-hover {
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Tap highlight for mobile */
+.tap-highlight {
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.tap-highlight::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-primary);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+    pointer-events: none;
+}
+
+.tap-highlight:active::after {
+    opacity: 0.1;
+}
+
+/* ========================================
+   Balance Animation
+   ======================================== */
+
+.balance-animate {
+    animation: countUp 0.5s ease-out;
+}
+
+.balance-increment {
+    animation: pop 0.3s ease-out;
+    color: var(--color-success);
+}
+
+.balance-decrement {
+    animation: shake 0.3s ease-out;
+    color: var(--color-error);
+}
+
+/* ========================================
+   Success Animation
+   ======================================== */
+
+.success-checkmark {
+    animation: pop 0.4s ease-out;
+}
+
+/* ========================================
+   Reduced Motion Support
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
