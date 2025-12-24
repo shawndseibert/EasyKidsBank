@@ -326,18 +326,17 @@ const ParentDashboardView = {
         // Bind action buttons
         document.querySelector('[data-action="add-money"]').addEventListener('click', () => {
             Modal.close();
-            this.showAddMoneyModal(kid);
+            setTimeout(() => this.showAddMoneyModal(kid), 200);
         });
 
         document.querySelector('[data-action="remove-money"]').addEventListener('click', () => {
             Modal.close();
-            this.showRemoveMoneyModal(kid);
+            setTimeout(() => this.showRemoveMoneyModal(kid), 200);
         });
 
         document.querySelector('[data-action="view-history"]').addEventListener('click', () => {
             Modal.close();
-            // TODO: Navigate to kid's transaction history
-            Toast.info('Transaction history coming soon!');
+            setTimeout(() => Toast.info('Transaction history coming soon!'), 200);
         });
     },
 
@@ -494,17 +493,17 @@ const ParentDashboardView = {
 
         document.querySelector('[data-action="theme"]').addEventListener('click', () => {
             Modal.close();
-            this.showThemeModal();
+            setTimeout(() => this.showThemeModal(), 200);
         });
 
         document.querySelector('[data-action="account"]').addEventListener('click', () => {
             Modal.close();
-            Toast.info('Account settings coming soon!');
+            setTimeout(() => Toast.info('Account settings coming soon!'), 200);
         });
 
         document.querySelector('[data-action="signout"]').addEventListener('click', () => {
             Modal.close();
-            this.handleSignOut();
+            setTimeout(() => this.handleSignOut(), 200);
         });
     },
 

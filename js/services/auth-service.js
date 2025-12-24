@@ -222,6 +222,7 @@ const AuthService = {
         if (kid.pin === pin) {
             return { success: true, kid };
         } else {
+            Toast.error(`PIN mismatch. Stored: ${kid.pin}, Entered: ${pin}`);
             return { success: false, error: 'Incorrect PIN' };
         }
     },
