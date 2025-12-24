@@ -28,23 +28,20 @@
 
 const firebaseConfig = {
 
-  apiKey: "AIzaSyBUlUeS4XGWZ2sR-OYEq1sLgVGQkPuIaF0",
+  apiKey: "AIzaSyDSn8bPtr__KHMrgMBnvPFLfuWMJlMrAFo",
 
-  authDomain: "aim-clone-5278f.firebaseapp.com",
+  authDomain: "easykidsbank.firebaseapp.com",
 
-  databaseURL: "https://aim-clone-5278f-default-rtdb.firebaseio.com",
+  projectId: "easykidsbank",
 
-  projectId: "aim-clone-5278f",
+  storageBucket: "easykidsbank.firebasestorage.app",
 
-  storageBucket: "aim-clone-5278f.firebasestorage.app",
+  messagingSenderId: "455652368860",
 
-  messagingSenderId: "978091741450",
-
-  appId: "1:978091741450:web:bc156952eee2300e3d2af3",
-
-  measurementId: "G-D3Q47DCZYN"
+  appId: "1:455652368860:web:3f27d0949a1a0c63f92f19"
 
 };
+
 
 
 // Initialize Firebase
