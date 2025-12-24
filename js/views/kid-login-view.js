@@ -11,10 +11,18 @@ const KidLoginView = {
      * Mount the view
      * @param {HTMLElement} container - Container element
      */
-    mount(container) {
+    mount(container, params) {
         this.container = container;
         this.selectedKid = null;
         this.pin = '';
+
+        if (params && params[0]) {
+            // If a kid ID is passed in the URL, select that kid directly
+            const kidId = params[0];
+            const kids = Store.getState('kids');
+            this.selectedKid = kids.find(k => k.id === kidId);
+        }
+
         this.render();
         this.bindEvents();
     },

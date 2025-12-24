@@ -68,8 +68,17 @@ const FirestoreService = {
         }
 
         try {
+            // Get parent's family code
+            const parentDoc = await FirebaseConfig.db.collection('parents').doc(user.uid).get();
+            const familyCode = parentDoc.data()?.familyCode;
+
+            if (!familyCode) {
+                return { success: false, error: 'Could not find family code for parent.' };
+            }
+
             const newKidData = {
                 parentId: user.uid,
+                familyCode: familyCode,
                 name: kidData.name,
                 pin: kidData.pin, // In production, hash this
                 balance: kidData.initialBalance || 0,

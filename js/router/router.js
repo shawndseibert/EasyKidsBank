@@ -18,7 +18,7 @@ const Router = {
         'kid-login': {
             title: 'Kid Login',
             view: 'KidLoginView',
-            requiresAuth: true
+            requiresAuth: false
         },
         'parent-dashboard': {
             title: 'Dashboard',

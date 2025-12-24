@@ -222,7 +222,6 @@ const AuthService = {
         if (kid.pin === pin) {
             return { success: true, kid };
         } else {
-            Toast.error(`PIN mismatch. Stored: ${kid.pin}, Entered: ${pin}`);
             return { success: false, error: 'Incorrect PIN' };
         }
     },
@@ -285,6 +284,26 @@ const AuthService = {
      */
     getCurrentKid() {
         return Store.getState('currentKid');
+    },
+
+    /**
+     * Set the authorized kid for this device
+     * @param {string|null} kidId - The ID of the kid to authorize, or null to clear
+     */
+    setAuthorizedKid(kidId) {
+        if (kidId) {
+            Helpers.storage.set('easykidsbank-authorized-kid', kidId);
+        } else {
+            Helpers.storage.remove('easykidsbank-authorized-kid');
+        }
+    },
+
+    /**
+     * Get the authorized kid for this device
+     * @returns {string|null}
+     */
+    getAuthorizedKid() {
+        return Helpers.storage.get('easykidsbank-authorized-kid');
     },
 
     /**

@@ -91,11 +91,15 @@ const LandingView = {
         });
 
         kidBtn.addEventListener('click', () => {
-            // Check if user is authenticated (parent logged in)
-            if (Store.getState('isAuthenticated')) {
+            const authorizedKidId = AuthService.getAuthorizedKid();
+
+            if (authorizedKidId) {
+                Router.navigate('kid-login', { params: [authorizedKidId] });
+            } else if (Store.getState('isAuthenticated')) {
+                // Or if a parent is already logged in
                 Router.navigate('kid-login');
             } else {
-                // Need to login as parent first
+                // Otherwise, a parent must log in first
                 Toast.info('Please have a parent log in first!');
                 Router.navigate('parent-login');
             }

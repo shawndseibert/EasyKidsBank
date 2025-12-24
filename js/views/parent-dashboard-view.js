@@ -314,6 +314,10 @@ const ParentDashboardView = {
                     <span class="kid-action-icon">📋</span>
                     <span class="kid-action-label">View Transaction History</span>
                 </button>
+                <button class="kid-action-item" data-action="authorize-device">
+                    <span class="kid-action-icon">📱</span>
+                    <span class="kid-action-label">Authorize Device</span>
+                </button>
             </div>
         `;
 
@@ -337,6 +341,11 @@ const ParentDashboardView = {
         document.querySelector('[data-action="view-history"]').addEventListener('click', () => {
             Modal.close();
             setTimeout(() => Toast.info('Transaction history coming soon!'), 200);
+        });
+
+        document.querySelector('[data-action="authorize-device"]').addEventListener('click', () => {
+            Modal.close();
+            setTimeout(() => this.showAuthorizeKidDeviceModal(kid), 200);
         });
     },
 
@@ -521,6 +530,24 @@ const ParentDashboardView = {
 
         ThemePicker.bindEvents(document.querySelector('.modal-content'), (themeId) => {
             ThemeService.apply(themeId);
+        });
+    },
+
+    /**
+     * Show authorize kid device confirmation modal
+     * @param {object} kid - Kid object
+     */
+    showAuthorizeKidDeviceModal(kid) {
+        Modal.confirm({
+            title: `Authorize Device for ${kid.name}?`,
+            message: `This will set this device to automatically log in as ${kid.name}. You should only do this on a device that is exclusively used by ${kid.name}.`,
+            confirmText: 'Authorize',
+            danger: false
+        }).then(confirmed => {
+            if (confirmed) {
+                AuthService.setAuthorizedKid(kid.id);
+                Toast.success(`This device has been authorized for ${kid.name}.`);
+            }
         });
     },
 
