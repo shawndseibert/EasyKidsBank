@@ -68,7 +68,7 @@ const FirestoreService = {
         }
 
         try {
-            const docRef = await FirebaseConfig.db.collection('kids').add({
+            const newKidData = {
                 parentId: user.uid,
                 name: kidData.name,
                 pin: kidData.pin, // In production, hash this
@@ -79,7 +79,12 @@ const FirestoreService = {
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                 updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
                 lastLogin: null
-            });
+            };
+
+            const docRef = await FirebaseConfig.db.collection('kids').add(newKidData);
+
+            // Optimistically add to local store
+            Store.addKid({ ...newKidData, id: docRef.id, createdAt: new Date() });
 
             return { success: true, id: docRef.id };
 

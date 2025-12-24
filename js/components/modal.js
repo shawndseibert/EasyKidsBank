@@ -94,6 +94,7 @@ const Modal = {
         if (closable) {
             overlay.addEventListener('click', (e) => {
                 if (e.target === overlay) {
+                    Toast.info('Overlay clicked');
                     this.close();
                 }
             });
@@ -127,6 +128,8 @@ const Modal = {
      */
     close(result = null) {
         if (!this.currentModal) return;
+
+        Toast.info('Modal.close() called');
 
         // Add closing animation
         const modal = this.currentModal.querySelector('.modal');
