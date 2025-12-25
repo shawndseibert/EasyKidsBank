@@ -15,22 +15,41 @@ const KidLoginView = {
         this.container = container;
         this.selectedKid = null;
         this.pin = '';
+        this.unsubscribers = [];
 
-        if (params && params[0]) {
-            // If a kid ID is passed in the URL, select that kid directly
-            const kidId = params[0];
+        const kidId = params && params[0];
+
+        if (kidId) {
             const kids = Store.getState('kids');
-            this.selectedKid = kids.find(k => k.id === kidId);
+            if (kids.length > 0) {
+                this.selectedKid = kids.find(k => k.id === kidId);
+                this.render();
+                this.bindEvents();
+            } else {
+                // Show a loading spinner
+                this.container.innerHTML = '<div class="loading-spinner" style="margin: auto;"></div>';
+                const unsub = Store.subscribe('kids', (newKids) => {
+                    if (newKids.length > 0) {
+                        this.selectedKid = newKids.find(k => k.id === kidId);
+                        this.render();
+                        this.bindEvents();
+                        unsub();
+                    }
+                });
+                this.unsubscribers.push(unsub);
+            }
+        } else {
+            this.render();
+            this.bindEvents();
         }
-
-        this.render();
-        this.bindEvents();
     },
 
     /**
      * Unmount the view
      */
     unmount() {
+        this.unsubscribers.forEach(unsub => unsub());
+        this.unsubscribers = [];
         this.container = null;
         this.selectedKid = null;
         this.pin = '';
